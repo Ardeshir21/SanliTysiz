@@ -47,7 +47,7 @@ DEBUG = bool(secrets_dict['DEBUG'])
 ALLOWED_HOSTS = ['161.35.103.31',
                  'localhost',
                  '127.0.0.1',
-                 'www.sanly-tysiz.com.tr',
+                 'www.sanli-tysiz.com.tr',
                  'sanli-tysiz.com.tr',
                  ]
 
