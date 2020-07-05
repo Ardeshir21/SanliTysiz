@@ -44,13 +44,13 @@ SECRET_KEY = secrets_dict['SECRET_KEY']
 # I used bool() to return False
 DEBUG = bool(secrets_dict['DEBUG'])
 
-# ALLOWED_HOSTS = ['161.35.103.31',
-#                  'localhost',
-#                  '127.0.0.1',
-#                  'www.sanli-tysiz.com.tr',
-#                  'sanli-tysiz.com.tr',
-#                  ]
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['161.35.103.31',
+                 'localhost',
+                 '127.0.0.1',
+                 'www.sanli-tysiz.com.tr',
+                 'sanli-tysiz.com.tr',
+                 ]
+
 
 # Application definition
 
