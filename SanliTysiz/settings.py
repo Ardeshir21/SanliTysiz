@@ -160,6 +160,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# The root for collecting all static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 # This is for production use only.
 # https://docs.djangoproject.com/en/1.10/ref/contrib/staticfiles/#manifeststaticfilesstorage
 if DEBUG == False:
