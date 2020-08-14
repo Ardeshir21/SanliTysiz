@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # My applications
-    'apps.baseApp',
+    'SanliTysiz.apps.baseApp',
     # for models Text editor
     'ckeditor',
     'ckeditor_uploader',
