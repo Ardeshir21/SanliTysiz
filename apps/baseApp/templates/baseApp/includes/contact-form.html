@@ -1,0 +1,40 @@
+<form
+  class="row contact_form"
+  method="POST"
+  id="contactForm"
+  novalidate="novalidate"> {% csrf_token %}
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <select multiple="multiple" name='sender_request' placeholder="Your Request" class="SlectBox-grp-src">
+        {% for option_id, option_label in form.sender_request.field.choices %}
+            <option value="{{option_id}}">{{option_label}}</option>
+        {% endfor %}
+      </select>
+      {{form.sender_request.errors}}
+    </div>
+    <div class="form-group">
+      {{form.sender_name}}
+      {{form.sender_name.errors}}
+    </div>
+    <div class="form-group">
+      {{form.sender_email}}
+      {{form.sender_email.errors}}
+    </div>
+    <div class="form-group">
+      {{form.sender_number}}
+      {{form.sender_number.errors}}
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      {{form.sender_message}}
+      {{form.sender_message.errors}}
+    </div>
+  </div>
+  <div class="col-md-12 text-right">
+    <button type="submit" value="submit" class="btn primary-btn">
+      Send Message
+    </button>
+  </div>
+</form>

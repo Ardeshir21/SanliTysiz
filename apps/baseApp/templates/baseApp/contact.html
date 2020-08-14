@@ -1,0 +1,124 @@
+{% extends "baseApp/base.html" %}
+{% load static %}
+
+{% block head_title %}
+  <title>Sanli Taysiz - Contact Us</title>
+{% endblock head_title %}
+
+
+{% block body_content %}
+
+    <!--================Home Banner Area =================-->
+    <!-- Because this view doesn't have a "banner" context, we don't use the include html here -->
+    <section class="banner_area"  style="background: url({% static 'baseApp/img/banner/contact-banner.jpg' %}) no-repeat center center;">
+      <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="banner_content text-center">
+                <h2>{{page_title}}</h2>
+                <div class="page_link">
+                  <!-- Using this variable to identify the URL depth -->
+                  {% if page_url_detector == "one level depth url" %}
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a class="current_page" href="{% url 'baseApp:categories' %}">Categories</a>
+                  {% endif %}
+
+                  {% if page_url_detector == "two level depth url" %}
+                    <!-- Using if on context_object_name of views function -->
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a href="{% url 'baseApp:categories' %}">Categories</a>
+                    <a class="current_page" href="{% url 'baseApp:products' category=page_slug %}">{{page_title}}</a>
+                  {% endif %}
+
+                  {% if page_url_detector == "three level depth url" %}
+                    <!-- Using if on context_object_name of views function -->
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a href="{% url 'baseApp:categories' %}">Categories</a>
+                    <a href="{% url 'baseApp:products' category=product.category.slug %}">{{product.category}}</a>
+                    <a class="current_page" href="{% url 'baseApp:product_detail' category=product.category.slug product=page_slug %}">{{page_title}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================Contact Area =================-->
+    <section class="contact_area section_gap">
+      <div class="container">
+        <div class="row mb-50">
+          <!-- Contact Details -->
+          <div class="col-lg-4">
+            <div class="contact_info">
+              <div class="info_item">
+                <i class="ti-home"></i>
+                <h6>Gül Proje Express</h6>
+                <p>Mahmutbey, Taşocağı Yolu No:33, 34218 Bağcılar, Istanbul, Turkey</p>
+              </div>
+              <div class="info_item">
+                <i class="ti-headphone"></i>
+                <h6><a href="tel:+905356832320">+90 (535) 683 23 20</a></h6>
+                <p>Monday to Friday 9 am to 6 pm</p>
+              </div>
+              <div class="info_item">
+                <i class="ti-email"></i>
+                <h6><a href="mailto:sales&#64;sanli-taysiz.com.tr">sales<code>@</code>sanli-taysiz.com.tr</a></h6>
+                <p>Send us your query anytime!</p>
+              </div>
+            </div>
+          </div>
+          <!-- Contact Form -->
+          <div class="col-lg-8">
+            {% include "baseApp/includes/contact-form.html" %}
+          </div>
+        </div>
+        <!-- MAP -->
+        <div class="row google-maps">
+          <iframe
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJJ3yNA6ClyhQRHI4_zr2qAe4&key=AIzaSyCDL1Wg5qvLEXIR_2S1upMB04z0jptzVYA" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+    <!--================Contact Area =================-->
+
+{% endblock body_content %}
+
+{% block body_JS %}
+    <!-- Menu with checkbox for Search area -->
+    <script src="{% static "baseApp/js/jquery.sumoselect.js" %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3, selectAll:true, captionFormatAllSelected: "Yeah, OK, so everything." });
+            window.test = $('.testsel').SumoSelect({okCancelInMulti:true, captionFormatAllSelected: "Yeah, OK, so everything." });
+
+            window.testSelAll = $('.testSelAll').SumoSelect({okCancelInMulti:true, selectAll:true });
+
+            window.testSelAll2 = $('.testSelAll2').SumoSelect({selectAll:true});
+
+            window.testSelAlld = $('.SlectBox-grp').SumoSelect({okCancelInMulti:true, selectAll:true, isClickAwayOk:true });
+
+            window.sb = $('.SlectBox-grp-src').SumoSelect({ csvDispCount: 3, search: true, searchText:'Enter here.', selectAll:true });
+            window.searchSelAll = $('.search-box-sel-all').SumoSelect({ csvDispCount: 3, selectAll:true, search: true, searchText:'Enter here.', okCancelInMulti:true });
+            window.searchSelAll = $('.search-box-open-up').SumoSelect({ csvDispCount: 3, selectAll:true, search: false, searchText:'Enter here.', up:true });
+            window.Search = $('.search-box-custom-fn').SumoSelect({ csvDispCount: 3, search: true, searchText:'Enter here.', searchFn: function(haystack, needle) {
+              var re = RegExp('^' + needle.replace(/([^\w\d])/gi, '\\$1'), 'i');
+              return !haystack.match(re);
+            } });
+
+            window.groups_eg_g = $('.groups_eg_g').SumoSelect({selectAll:true, search:true });
+
+
+            $('.SlectBox').on('sumo:opened', function(o) {
+              console.log("dropdown opened", o)
+            });
+
+        });
+    </script>
+{% endblock body_JS %}

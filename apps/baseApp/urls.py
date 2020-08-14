@@ -10,10 +10,12 @@ app_name = 'baseApp'
 #
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    # path('properties/', views.AssetFilterView.as_view(), name='properties'),
-    # path('properties/<int:pk>/', views.AssetSingleView.as_view(), name='propertyView'),
-    # path('about-us/', views.ContactView.as_view(), name='about_us'),
-    #
+    path('categories/', views.CategoryListView.as_view(), name='categories'),
+    path('categories/<slug:category>/', views.ProductListView.as_view(), name='products'),
+    path('categories/<slug:category>/<slug:product>/', views.ProductDetailView.as_view(), name='product_detail'),
+    path('contact/', views.ContactView.as_view(), name='contact-us'),
+    path('about/', views.AboutView.as_view(), name='about-us')
+
     # # This is for sitemap.xml
     # path('RealSiteMap.xml', sitemap, {'sitemaps': sitemaps_dict},
     #  name='django.contrib.sitemaps.views.sitemap'),

@@ -1,0 +1,27 @@
+{% load static %}
+
+<div class="col-lg-6 col-md-6">
+  <div class="single_event position-relative">
+    <div class="event_thumb">
+      <img src="{{product.image_thumb.url}}" alt="{{product.name}}-{{product.category}}" />
+    </div>
+    <div class="event_details">
+      <div class="d-flex mb-4">
+        <div class="date"><span>{{product.price}}</span> TL</div>
+
+        <div class="time-location">
+          <p>
+            <span class="ti-time mr-2"></span> {{product.category}}
+          </p>
+          <p>
+            <span class="ti-location-pin mr-2"></span> {{product.contry_of_origin}}
+          </p>
+        </div>
+      </div>
+      <p>
+        {{product.shortContent}}
+      </p>
+      <a href="{% url 'baseApp:product_detail' category=product.category.slug product=product.slug %}" class="primary-btn rounded-0 mt-3">View Details</a>
+    </div>
+  </div>
+</div>

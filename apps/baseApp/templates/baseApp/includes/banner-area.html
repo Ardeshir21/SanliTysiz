@@ -1,0 +1,40 @@
+
+<!--================Home Banner Area =================-->
+
+<section class="banner_area"  style="background: url({{banner.url}}) no-repeat center center;">
+  <div class="banner_inner d-flex align-items-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="banner_content text-center">
+            <h2>{{page_title}}</h2>
+            <div class="page_link">
+              <!-- Using this variable to identify the URL depth -->
+              {% if page_url_detector == "one level depth url" %}
+                <a href="{% url 'baseApp:index' %}">Home</a>
+                <a class="current_page" href="{% url 'baseApp:categories' %}">Categories</a>
+              {% endif %}
+
+              {% if page_url_detector == "two level depth url" %}
+                <!-- Using if on context_object_name of views function -->
+                <a href="{% url 'baseApp:index' %}">Home</a>
+                <a href="{% url 'baseApp:categories' %}">Categories</a>
+                <a class="current_page" href="{% url 'baseApp:products' category=page_slug %}">{{page_title}}</a>
+              {% endif %}
+
+              {% if page_url_detector == "three level depth url" %}
+                <!-- Using if on context_object_name of views function -->
+                <a href="{% url 'baseApp:index' %}">Home</a>
+                <a href="{% url 'baseApp:categories' %}">Categories</a>
+                <a href="{% url 'baseApp:products' category=product.category.slug %}">{{product.category}}</a>
+                <a class="current_page" href="{% url 'baseApp:product_detail' category=product.category.slug product=page_slug %}">{{page_title}}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================End Home Banner Area =================-->

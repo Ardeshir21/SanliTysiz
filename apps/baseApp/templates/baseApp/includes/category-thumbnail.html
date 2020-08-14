@@ -1,0 +1,23 @@
+<div class="single_course mb-15">
+  <div class="course_head">
+    <a href="{% url 'baseApp:products' category=category.slug %}">
+      <img class="img-fluid" src="{{category.image_thumb.url}}" alt="{{category.slug}}" />
+    </a>
+  </div>
+  <div class="course_content">
+    <a href="{% url 'baseApp:products' category=category.slug %}">
+      <span class="price"><i class="{{category.icon}}"></i></span>
+    </a>
+    <a href="{% url 'baseApp:products' category=category.slug %}">
+      <span class="tag mb-4 d-inline-block">See More...</span>
+    </a>
+    <h4 class="mb-3">
+      <a href="{% url 'baseApp:products' category=category.slug %}">{{category.name}}</a>
+    </h4>
+    <p>{{category.description}}</p>
+    <div
+      class="course_meta d-flex justify-content-lg-between align-items-lg-center flex-lg-row flex-column mt-4"
+    >
+    </div>
+  </div>
+</div>

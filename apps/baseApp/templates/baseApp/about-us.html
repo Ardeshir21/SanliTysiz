@@ -1,0 +1,262 @@
+{% extends "baseApp/base.html" %}
+{% load static %}
+
+{% block head_title %}
+  <title>Sanli Taysiz - Contact Us</title>
+{% endblock head_title %}
+
+
+{% block body_content %}
+
+    <!--================Home Banner Area =================-->
+    <!-- Because this view doesn't have a "banner" context, we don't use the include html here -->
+    <section class="banner_area"  style="background: url({% static 'baseApp/img/banner/about-us-banner.jpg' %}) no-repeat center center;">
+      <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="banner_content text-center">
+                <h2>{{page_title}}</h2>
+                <div class="page_link">
+                  <!-- Using this variable to identify the URL depth -->
+                  {% if page_url_detector == "one level depth url" %}
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a class="current_page" href="{% url 'baseApp:categories' %}">Categories</a>
+                  {% endif %}
+
+                  {% if page_url_detector == "two level depth url" %}
+                    <!-- Using if on context_object_name of views function -->
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a href="{% url 'baseApp:categories' %}">Categories</a>
+                    <a class="current_page" href="{% url 'baseApp:products' category=page_slug %}">{{page_title}}</a>
+                  {% endif %}
+
+                  {% if page_url_detector == "three level depth url" %}
+                    <!-- Using if on context_object_name of views function -->
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a href="{% url 'baseApp:categories' %}">Categories</a>
+                    <a href="{% url 'baseApp:products' category=product.category.slug %}">{{product.category}}</a>
+                    <a class="current_page" href="{% url 'baseApp:product_detail' category=product.category.slug product=page_slug %}">{{page_title}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================ Start About Area =================-->
+    <section class="about_area section_gap">
+      <div class="container">
+        <div class="row h_blog_item">
+          <div class="col-lg-6">
+            <div class="h_blog_img">
+              <img class="img-fluid" src="{% static "baseApp/img/about.png" %}" alt="" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="h_blog_text">
+              <div class="h_blog_text_inner left right">
+                <h4>Welcome to our Sanli Taysiz Trading Company</h4>
+                <p>
+                  Subdue whales void god which living don't midst lesser
+                  yielding over lights whose. Cattle greater brought sixth fly
+                  den dry good tree isn't seed stars were.
+                </p>
+                <p>
+                  Subdue whales void god which living don't midst lesser yieldi
+                  over lights whose. Cattle greater brought sixth fly den dry
+                  good tree isn't seed stars were the boring.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================ End About Area =================-->
+
+    <!--================ Start Feature Area =================-->
+    <section class="feature_area section_gap_top title-bg">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="main_title text-white">
+              <h2 class="mb-3 text-white">Awesome Feature</h2>
+              <p>
+                Replenish man have thing gathering lights yielding shall you
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="single_feature">
+              <div class="icon"><i class="fad fa-shipping-timed"></i></div>
+              <div class="desc">
+                <h4 class="mt-3 mb-2">Fast and Safe Delivery</h4>
+                <p>
+                  One make creepeth, man bearing theira firmament won't great
+                  heaven
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="single_feature">
+              <div class="icon"><i class="fad fa-user-tie"></i></div>
+              <div class="desc">
+                <h4 class="mt-3 mb-2">Consistent Business</h4>
+                <p>
+                  One make creepeth, man bearing theira firmament won't great
+                  heaven
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="single_feature">
+              <div class="icon"><i class="fad fa-warehouse-alt"></i></div>
+              <div class="desc">
+                <h4 class="mt-3 mb-2">Trusted Supplier</h4>
+                <p>
+                  One make creepeth, man bearing theira firmament won't great
+                  heaven
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================ End Feature Area =================-->
+
+    <!--================ Start Testimonial Area =================-->
+    <div class="testimonial_area section_gap">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="main_title">
+              <h2 class="mb-3">Client say about me</h2>
+              <p>
+                Replenish man have thing gathering lights yielding shall you
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="testi_slider owl-carousel">
+            <div class="testi_item">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <img src="img/testimonials/t1.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                  <div class="testi_text">
+                    <h4>Elite Martin</h4>
+                    <p>
+                      Him, made can't called over won't there on divide there
+                      male fish beast own his day third seed sixth seas unto.
+                      Saw from
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testi_item">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <img src="img/testimonials/t2.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                  <div class="testi_text">
+                    <h4>Davil Saden</h4>
+                    <p>
+                      Him, made can't called over won't there on divide there
+                      male fish beast own his day third seed sixth seas unto.
+                      Saw from
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testi_item">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <img src="img/testimonials/t1.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                  <div class="testi_text">
+                    <h4>Elite Martin</h4>
+                    <p>
+                      Him, made can't called over won't there on divide there
+                      male fish beast own his day third seed sixth seas unto.
+                      Saw from
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testi_item">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <img src="img/testimonials/t2.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                  <div class="testi_text">
+                    <h4>Davil Saden</h4>
+                    <p>
+                      Him, made can't called over won't there on divide there
+                      male fish beast own his day third seed sixth seas unto.
+                      Saw from
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testi_item">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <img src="img/testimonials/t1.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                  <div class="testi_text">
+                    <h4>Elite Martin</h4>
+                    <p>
+                      Him, made can't called over won't there on divide there
+                      male fish beast own his day third seed sixth seas unto.
+                      Saw from
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testi_item">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <img src="img/testimonials/t2.jpg" alt="" />
+                </div>
+                <div class="col-lg-8">
+                  <div class="testi_text">
+                    <h4>Davil Saden</h4>
+                    <p>
+                      Him, made can't called over won't there on divide there
+                      male fish beast own his day third seed sixth seas unto.
+                      Saw from
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--================ End Testimonial Area =================-->
+{% endblock body_content %}
