@@ -327,7 +327,7 @@ button:focus {
   background-size: cover; }
   .home_banner_area .banner_inner {
     position: absolute;
-    top: 40%;
+    top: 50%;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
