@@ -49,6 +49,8 @@ ALLOWED_HOSTS = ['161.35.103.31',
                  '127.0.0.1',
                  'www.sanli-tysiz.com.tr',
                  'sanli-tysiz.com.tr',
+                 'sanli-taysiz.com.tr',
+                 'www.sanli-taysiz.com.tr'
                  ]
 
 
