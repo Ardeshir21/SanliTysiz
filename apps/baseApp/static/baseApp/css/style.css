@@ -3034,7 +3034,7 @@ h6 {
     position: absolute; }
 
   .header_area .navbar {
-    background: #868686; }
+    background: transparent; }
 
   .navbar-toggler[aria-expanded="false"] span:nth-child(2) {
     opacity: 1; }
