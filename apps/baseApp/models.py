@@ -31,6 +31,9 @@ class Product_Category(models.Model):
     class Meta():
         verbose_name_plural = "Product_Categories"
 
+    def get_absolute_url(self):
+        return reverse('baseApp:products', kwargs={'category': self.slug})
+
 class Color(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -68,8 +71,9 @@ class Product(models.Model):
         self.updated = timezone.now()
         return super(Product, self).save(*args, **kwargs)
 
-    # def get_absolute_url(self):
-    #     return reverse('baseApp:product_detail', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('baseApp:product_detail', kwargs={'category': self.category.slug ,
+                                                        'product': self.slug})
 
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, related_name='slideshow_images', on_delete=models.CASCADE)

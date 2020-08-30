@@ -63,6 +63,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
+    'robots',
+
     # My applications
     'apps.baseApp',
     # for models Text editor
@@ -70,6 +74,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # for models phone number field
     'phonenumber_field',
+
 ]
 
 MIDDLEWARE = [
@@ -102,6 +107,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SanliTysiz.wsgi.application'
 
+SITE_ID = 2
+
+# Robots.txt setup
+ROBOTS_SITEMAP_URLS = [
+    'https://www.sanli-taysiz.com.tr/SanliSiteMap.xml',
+]
+ROBOTS_USE_SCHEME_IN_HOST = True
+ROBOTS_USE_HOST = False
+
+# Email settings
+EMAIL_HOST = secrets_dict['EMAIL_HOST']
+EMAIL_PORT = 465
+EMAIL_HOST_USER = secrets_dict['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = secrets_dict['EMAIL_HOST_PASSWORD']
+EMAIL_USE_SSL = True
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
