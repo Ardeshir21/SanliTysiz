@@ -28,10 +28,10 @@
                         <!-- Description -->
                         <h4 class="title">Description</h4>
                         <div class="content">
-                            {{product.content}}
+                            {{product.content|safe}}
                         </div>
 
-                        {% if product.content_extra %}
+                        {% if product.content_extra|safe %}
                             <h4 class="title">Specification</h4>
                             <div class="content">
                                 {{product.content_extra}}
