@@ -45,10 +45,10 @@ class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     price = models.FloatField(default=0.0)
     width = models.PositiveIntegerField(default=0)
-    color = models.ManyToManyField(Color, related_name='colors')
+    color = models.ManyToManyField(Color, related_name='colors', blank=True, null=True)
     contry_of_origin = models.CharField(max_length=50, default='Turkey')
     content = RichTextUploadingField(default='Here is the product detailed information')
-    content_extra = RichTextUploadingField(default='Here is the product EXTRA information')
+    content_extra = RichTextUploadingField(default='Here is the product EXTRA information', blank=True)
     shortContent = models.TextField(max_length=370, blank=True, help_text='Max Characters = 370')
     image_thumb = models.ImageField(upload_to='baseApp/products/', blank=True, null=True,
                                 help_text="Thumbnail Image 555x400")

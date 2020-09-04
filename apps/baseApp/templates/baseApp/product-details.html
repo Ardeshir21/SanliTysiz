@@ -31,10 +31,10 @@
                             {{product.content|safe}}
                         </div>
 
-                        {% if product.content_extra|safe %}
+                        {% if product.content_extra %}
                             <h4 class="title">Specification</h4>
                             <div class="content">
-                                {{product.content_extra}}
+                                {{product.content_extra|safe}}
                             </div>
                         {% endif %}
 
