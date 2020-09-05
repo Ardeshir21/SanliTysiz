@@ -3,8 +3,7 @@ from django import forms
 from django.db import models
 from .models import (Product_Category,
                     Product,
-                    ProductImages,
-                    Color)
+                    ProductImages)
 
 class ProductImagesInline(admin.TabularInline):
     model = ProductImages
@@ -29,9 +28,6 @@ class ProductAdmin(admin.ModelAdmin):
 class Product_CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
-class ColorAdmin(admin.ModelAdmin):
-    list_display = ['name']
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Product_Category, Product_CategoryAdmin)
-admin.site.register(Color, ColorAdmin)

@@ -34,18 +34,10 @@ class Product_Category(models.Model):
     def get_absolute_url(self):
         return reverse('baseApp:products', kwargs={'category': self.slug})
 
-class Color(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.name
-
 class Product(models.Model):
     category = models.ForeignKey(Product_Category, related_name='categories', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, unique=True)
     price = models.FloatField(default=0.0)
-    width = models.PositiveIntegerField(default=0)
-    color = models.ManyToManyField(Color, related_name='colors', blank=True, null=True)
     contry_of_origin = models.CharField(max_length=50, default='Turkey')
     content = RichTextUploadingField(default='Here is the product detailed information')
     content_extra = RichTextUploadingField(default='Here is the product EXTRA information', blank=True)
