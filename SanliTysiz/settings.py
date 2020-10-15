@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
-# This part of code is for keep secret variables secure and also it to change some parameters for Development/Production
+# This  part of code is for keep secret variables secure and also it to change some parameters for Development/Production
 # It returns the secrets_dict which can be used in the main code
 # This file is different in Server and my local PC
 secret_file = 'SanliTysizKEYS.txt'

@@ -650,6 +650,18 @@ button:focus {
 ============================================================================================ */
 /* Start Courses Details Area css
 ============================================================================================ */
+.content img{
+  height: auto;
+  width: 100%;
+}
+#left-img {
+  width: 250px;
+  height: auto;
+}
+#center-img {
+  text-align: center;
+}
+
 .course_details_area .title {
   font-size: 21px;
   border: none;
