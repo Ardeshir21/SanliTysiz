@@ -1,0 +1,13 @@
+
+
+<div class="row">
+  {% for item in videos_names %}
+    <a href="{% url "baseApp:download" file_name=item %}">Video {{forloop.counter}}</a>
+  {% endfor %}
+</div>
+
+<div class="row">
+  {% for item in images_names %}
+  <a href="{% url "baseApp:download" file_name=item %}">Image {{forloop.counter}}</a>
+{% endfor %}
+</div>

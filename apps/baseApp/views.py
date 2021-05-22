@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.views import generic
 from django.urls import reverse_lazy
-from . import models
-from . import forms
+from django.http import HttpResponse
+from . import models, forms, Instagram_Downloader
+from  urllib.request import urlretrieve
+import os
+from django.conf import settings
+from urllib.parse import urlparse
 
 
 
@@ -131,3 +135,75 @@ class AboutView(generic.TemplateView):
         context.update(get_extra_context())
         context['featured_products'] = models.Product.objects.filter(featured=True, status=True)
         return context
+
+
+# TEST View
+class TestView(generic.TemplateView):
+    template_name = 'baseApp/test.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Append shared extraContext
+        context.update(get_extra_context())
+        context['featured_products'] = models.Product.objects.filter(featured=True, status=True)
+        return context
+
+# AJAX call which is used to scrape product with URL by client
+class AJAX_SCRAPE(generic.TemplateView):
+    template_name = 'baseApp/ajax_result.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Append shared extraContext
+        context.update(get_extra_context())
+
+        # Get the URL from Instagram
+        requested_url = self.request.GET.get('requested_url')
+        new_crawler= Instagram_Downloader.crawler(requested_url)
+        media_addresses = new_crawler.list_media_addresses()
+        videos_list = []
+        images_list = []
+
+        # Download all the files into the Server
+        url_path = urlparse(requested_url).path
+        url_path = url_path.replace('/', '_')
+
+        # Vidoes
+        for index, file in enumerate(media_addresses['videos_addresses'], start=1):
+            file_name = '{}_{}.mp4'.format(url_path, index)
+            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
+            urlretrieve(file, temp_file_path)
+            # add file name to the list
+            videos_list.append(file_name)
+        # Images
+        for index, file in enumerate(media_addresses['images_addresses'], start=1):
+            file_name = '{}_{}.jpg'.format(url_path, index)
+            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
+            urlretrieve(file, temp_file_path)
+            # add file name to the list
+            images_list.append(file_name)
+
+        if new_crawler:
+            context['videos_names'] = videos_list
+            context['images_names'] = images_list
+        else:
+            context['scraped_data'] = False
+
+        context['RequestedLink'] = requested_url
+        return context
+
+def Download(request, file_name):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
+    if file_path.endswith('.mp4'):
+        file_type = "video/mp4"
+    else:
+        file_type = "image/jpeg"
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh, content_type = file_type)
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404

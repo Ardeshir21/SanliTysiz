@@ -1,0 +1,108 @@
+{% extends "baseApp/base.html" %}
+{% load static %}
+
+{% block head_title %}
+  <title>TEST ME</title>
+{% endblock head_title %}
+
+
+{% block body_content %}
+
+    <!--================Home Banner Area =================-->
+    <!-- Because this view doesn't have a "banner" context, we don't use the include html here -->
+    <section class="banner_area"  style="background: url({% static 'baseApp/img/banner/about-us-banner.jpg' %}) no-repeat center center;">
+      <div class="banner_inner d-flex align-items-center">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="banner_content text-center">
+                <h2>{{page_title}}</h2>
+                <div class="page_link">
+                  <!-- Using this variable to identify the URL depth -->
+                  {% if page_url_detector == "one level depth url" %}
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a class="current_page" href="{% url 'baseApp:categories' %}">Categories</a>
+                  {% endif %}
+
+                  {% if page_url_detector == "two level depth url" %}
+                    <!-- Using if on context_object_name of views function -->
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a href="{% url 'baseApp:categories' %}">Categories</a>
+                    <a class="current_page" href="{% url 'baseApp:products' category=page_slug %}">{{page_title}}</a>
+                  {% endif %}
+
+                  {% if page_url_detector == "three level depth url" %}
+                    <!-- Using if on context_object_name of views function -->
+                    <a href="{% url 'baseApp:index' %}">Home</a>
+                    <a href="{% url 'baseApp:categories' %}">Categories</a>
+                    <a href="{% url 'baseApp:products' category=product.category.slug %}">{{product.category}}</a>
+                    <a class="current_page" href="{% url 'baseApp:product_detail' category=product.category.slug product=page_slug %}">{{page_title}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================ Start About Area =================-->
+    <section class="about_area section_gap">
+      <div class="container">
+        <div class="row h_blog_item">
+          <div class="col-12">
+            <form id="url-form" class='form-group' method="GET">
+              <input id='requested_url' class='form-control' style="text-align: center;" type="text" placeholder="Instagram Post URL" value="">
+              <button id="submit-form" url="{% url "baseApp:ajax_crawl" %}" type="submit">GET</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id='result-part' class="container">
+      <!-- The content of this div is loaded via AJAX from scrape_result.html -->
+    </div>
+
+{% endblock body_content %}
+
+
+
+{% block body_JS %}
+  <!-- Here is the main content -->
+
+<!-- AJAX -->
+<script type="text/javascript">
+     // The URL ajax
+     // loader hide
+    // $('#ajax_container').hide();
+
+    $('#url-form').on('submit', function(e){
+      var requested_url= $('#requested_url').val();
+      console.log(requested_url)
+      var ajax_call= $('#submit-form').attr('url');
+      console.log(ajax_call)
+      e.preventDefault();
+
+      $.ajax({
+          type:"GET",
+          url: ajax_call,
+          data: {
+            'requested_url': requested_url,
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+          },
+          // beforeSend: function() {
+          //    $('#ajax_container').show();
+          // },
+          success: function(data){
+            // console.log(data)
+            // $('#ajax_container').hide();
+            $('#result-part').html(data);
+            // EPPZScrollTo.scrollVerticalToElementById('Quotation', 45);
+            }
+       });
+    });
+</script>
+{% endblock body_JS %}
