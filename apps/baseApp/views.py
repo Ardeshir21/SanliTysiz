@@ -212,7 +212,7 @@ class AJAX_SCRAPE(generic.TemplateView):
         #     context['images_names'] = False
         #
         # context['RequestedLink'] = requested_url
-        context['AAA'] = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
+        context['AAA'] = os.path.join(settings.MEDIA_ROOT, 'Crawlers', 'crawler.pickle')
         return context
 
 def Download(request, file_name):
