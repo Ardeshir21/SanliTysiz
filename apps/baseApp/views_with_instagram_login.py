@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views import generic
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from . import models, forms, Instagram_Downloader
+from . import models, forms, Instagram_Downloader_Login
+from apps.baseApp.Instagram_Downloader_Login import crawler
 from  urllib.request import urlretrieve
 import os
 import pickle
@@ -163,9 +164,23 @@ class AJAX_SCRAPE(generic.TemplateView):
         # Get the URL from Instagram
         requested_url = self.request.GET.get('requested_url')
 
-        # if no crawler object exist, make one instance
-        new_crawler = Instagram_Downloader.crawler(requested_url)
-        media_addresses = new_crawler.list_media_addresses()
+        while True:
+            # import saved crawler object
+            crawler_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
+            try:
+                crawler_obj = open(crawler_file_path, 'rb')
+                loaded_crawler = pickle.load(crawler_obj)
+            except FileNotFoundError:
+                loaded_crawler = False
+                pass
+            if loaded_crawler:
+                break
+            # if no crawler object exist, make one instance
+            new_crawler= Instagram_Downloader_Login.crawler()
+            new_crawler.insta_login()
+            new_crawler.save_crawler()
+        # Use the loaded crawler
+        media_addresses = loaded_crawler.list_media_addresses(required_url=requested_url)
         videos_list = []
         images_list = []
 
@@ -189,7 +204,7 @@ class AJAX_SCRAPE(generic.TemplateView):
             images_list.append(file_name)
 
         # CHECK IF this if is needed###################################
-        if new_crawler:
+        if loaded_crawler:
             context['videos_names'] = videos_list
             context['images_names'] = images_list
         else:
