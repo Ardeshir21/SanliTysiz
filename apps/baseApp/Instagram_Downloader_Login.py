@@ -151,6 +151,6 @@ class crawler():
 
         if self.is_logged_in:
             # Save the Crawler Object
-            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers')
+            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers/')
             crawler_obj = open(temp_file_path + 'crawler.pickle', 'wb')
             pickle.dump(self, crawler_obj)
