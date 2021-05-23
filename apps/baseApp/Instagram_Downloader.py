@@ -60,7 +60,7 @@ class crawler():
 # new_crawler.list_media_addresses()
 
 
-if no crawler object exist, make one instance
+# if no crawler object exist, make one instance
 requested_url = 'https://www.instagram.com/p/COd-xL-j2dz/'
 new_crawler = crawler(requested_url)
 media_addresses = new_crawler.list_media_addresses()
