@@ -114,7 +114,6 @@ class crawler():
                 self.is_logged_in = False
                 return False
 
-
     # change the recieved download link to make it usable
     def prepare_urls(self, matches):
         return list({match.replace("\\u0026", "&") for match in matches})
@@ -146,14 +145,12 @@ class crawler():
         else:
             print("A problem in response")
 
+    def save_crawler(self):
+        # Perform Login action with the Crawler
+        self.insta_login()
 
-#%%
-def save_crawler(crawler_instance):
-    # Perform Login action with the Crawler
-    crawler_instance.insta_login()
-
-    if crawler_instance.is_logged_in:
-        # Save the Crawler Object
-        temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
-        crawler_obj = open(temp_file_path, 'wb')
-        pickle.dump(crawler_instance, crawler_obj)
+        if self.is_logged_in:
+            # Save the Crawler Object
+            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
+            crawler_obj = open(temp_file_path, 'wb')
+            pickle.dump(self, crawler_obj)
