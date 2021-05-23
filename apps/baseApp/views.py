@@ -178,7 +178,7 @@ class AJAX_SCRAPE(generic.TemplateView):
             # if no crawler object exist, make one instance
         new_crawler= Instagram_Downloader_Login.crawler()
         new_crawler.insta_login()
-        new_crawler.save_crawler()
+        # new_crawler.save_crawler()
         # Use the loaded crawler
         # media_addresses = loaded_crawler.list_media_addresses(required_url=requested_url)
         # videos_list = []
@@ -212,7 +212,7 @@ class AJAX_SCRAPE(generic.TemplateView):
         #     context['images_names'] = False
         #
         # context['RequestedLink'] = requested_url
-        context['AAA'] = new_crawler
+        context['AAA'] = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
         return context
 
 def Download(request, file_name):
