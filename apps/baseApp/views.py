@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views import generic
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from . import models, forms, Instagram_Downloader
+from . import models, forms, Instagram_Downloader_Login
+from apps.baseApp.Instagram_Downloader_Login import crawler
 from  urllib.request import urlretrieve
 import os
+import pickle
 from django.conf import settings
 from urllib.parse import urlparse
 
@@ -161,8 +163,20 @@ class AJAX_SCRAPE(generic.TemplateView):
 
         # Get the URL from Instagram
         requested_url = self.request.GET.get('requested_url')
-        new_crawler= Instagram_Downloader.crawler(requested_url)
-        media_addresses = new_crawler.list_media_addresses()
+
+        while True:
+            # import saved crawler object
+            crawler_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
+            crawler_obj = open(crawler_file_path, 'rb')
+            loaded_crawler = pickle.load(crawler_obj)
+            if loaded_crawler:
+                break
+            # if no crawler object exist, make one instance
+            new_crawler= Instagram_Downloader_Login.crawler()
+            Instagram_Downloader_Login.save_crawler(new_crawler)
+
+        # Use the loaded crawler
+        media_addresses = loaded_crawler.list_media_addresses(required_url=requested_url)
         videos_list = []
         images_list = []
 
@@ -185,11 +199,13 @@ class AJAX_SCRAPE(generic.TemplateView):
             # add file name to the list
             images_list.append(file_name)
 
-        if new_crawler:
+        # CHECK IF this if is needed###################################
+        if loaded_crawler:
             context['videos_names'] = videos_list
             context['images_names'] = images_list
         else:
-            context['scraped_data'] = False
+            context['videos_names'] = False
+            context['images_names'] = False
 
         context['RequestedLink'] = requested_url
         return context
