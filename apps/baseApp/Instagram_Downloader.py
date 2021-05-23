@@ -85,7 +85,7 @@ for index, file in enumerate(media_addresses['videos_addresses'], start=1):
 for index, file in enumerate(media_addresses['images_addresses'], start=1):
     file_name = '{}_{}.jpg'.format(url_path, index)
     # temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
-    temp_file_path = os.path.join('static', file_name)
+    temp_file_path = os.path.join('/home/ardeshir/SanliTysiz', 'media', file_name)
     urlretrieve(file, temp_file_path)
     # add file name to the list
     images_list.append(file_name)
