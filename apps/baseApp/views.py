@@ -216,7 +216,7 @@ class AJAX_SCRAPE(generic.TemplateView):
         return context
 
 def Download(request, file_name):
-    file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
+    file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
     if file_path.endswith('.mp4'):
         file_type = "video/mp4"
     else:
