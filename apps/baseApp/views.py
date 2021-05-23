@@ -167,8 +167,12 @@ class AJAX_SCRAPE(generic.TemplateView):
         while True:
             # import saved crawler object
             crawler_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
-            crawler_obj = open(crawler_file_path, 'rb')
-            loaded_crawler = pickle.load(crawler_obj)
+            try:
+                crawler_obj = open(crawler_file_path, 'rb')
+                loaded_crawler = pickle.load(crawler_obj)
+            except FileNotFoundError:
+                loaded_crawler = False
+                pass
             if loaded_crawler:
                 break
             # if no crawler object exist, make one instance
