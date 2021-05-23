@@ -60,31 +60,29 @@ class crawler():
 # new_crawler.list_media_addresses()
 
 
-# if no crawler object exist, make one instance
-requested_url = 'https://www.instagram.com/p/COjLgssj8Ew/'
-new_crawler = crawler(requested_url)
-media_addresses = new_crawler.list_media_addresses()
-videos_list = []
-images_list = []
-
-# Download all the files into the Server
-url_path = urlparse(requested_url).path
-url_path = url_path.replace('/', '_')
-
-
-print("AAAAAAA", os.getcwd())
-
-# Vidoes
-for index, file in enumerate(media_addresses['videos_addresses'], start=1):
-    file_name = '{}_{}.mp4'.format(url_path, index)
-    temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
-    urlretrieve(file)
-    # add file name to the list
-    videos_list.append(file_name)
-# Images
-for index, file in enumerate(media_addresses['images_addresses'], start=1):
-    file_name = '{}_{}.jpg'.format(url_path, index)
-    temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
-    urlretrieve(file, temp_file_path)
-    # add file name to the list
-    images_list.append(file_name)
+# # if no crawler object exist, make one instance
+# requested_url = 'https://www.instagram.com/p/COjLgssj8Ew/'
+# new_crawler = crawler(requested_url)
+# media_addresses = new_crawler.list_media_addresses()
+# videos_list = []
+# images_list = []
+#
+# # Download all the files into the Server
+# url_path = urlparse(requested_url).path
+# url_path = url_path.replace('/', '_')
+#
+#
+# # Vidoes
+# for index, file in enumerate(media_addresses['videos_addresses'], start=1):
+#     file_name = '{}_{}.mp4'.format(url_path, index)
+#     temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
+#     urlretrieve(file)
+#     # add file name to the list
+#     videos_list.append(file_name)
+# # Images
+# for index, file in enumerate(media_addresses['images_addresses'], start=1):
+#     file_name = '{}_{}.jpg'.format(url_path, index)
+#     temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
+#     urlretrieve(file, temp_file_path)
+#     # add file name to the list
+#     images_list.append(file_name)
