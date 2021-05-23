@@ -8,6 +8,7 @@ Created on Sat May 22 15:50:22 2021
 import requests
 import re
 from urllib.parse import quote_plus
+from django.conf import settings
 
 
 class crawler():
