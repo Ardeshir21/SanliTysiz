@@ -77,8 +77,8 @@ print("AAAAAAA", os.getcwd())
 # Vidoes
 for index, file in enumerate(media_addresses['videos_addresses'], start=1):
     file_name = '{}_{}.mp4'.format(url_path, index)
-    # temp_file_path = os.path.join('home/ardeshir/SanliTysiz/media/', 'Downloads', file_name)
-    # urlretrieve(file)
+    temp_file_path = os.path.join('/home/ardeshir/SanliTysiz/media/', 'Downloads', file_name)
+    urlretrieve(file)
     # add file name to the list
     videos_list.append(file_name)
 # Images
