@@ -19,7 +19,7 @@ from django.conf import settings
 class crawler():
     def __init__(self, username='cristiano.international',
                  password='@rdeshiR21!)'):
-
+        self.clawer_token = 'https://api.proxycrawl.com/?token=TR9ra9jPRdm7fgmY_uv5Lw&url='
         self.username = username
         self.password = password
         self.link = 'https://www.instagram.com/'
@@ -49,7 +49,7 @@ class crawler():
 
         # Get a cookie from main page
         time = int(datetime.now().timestamp())
-        response = requests.get(self.link, headers=self.requesting_header)
+        response = requests.get(self.clawer_token + self.link, headers=self.requesting_header)
         csrf = response.cookies['csrftoken']
 
         # Data to login
