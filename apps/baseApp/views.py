@@ -164,54 +164,54 @@ class AJAX_SCRAPE(generic.TemplateView):
         # Get the URL from Instagram
         requested_url = self.request.GET.get('requested_url')
 
-        while True:
-            # import saved crawler object
-            crawler_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
-            try:
-                crawler_obj = open(crawler_file_path, 'rb')
-                loaded_crawler = pickle.load(crawler_obj)
-            except FileNotFoundError:
-                loaded_crawler = False
-                pass
-            if loaded_crawler:
-                break
+        # while True:
+        #     # import saved crawler object
+        #     crawler_file_path = os.path.join(settings.MEDIA_ROOT, 'Crawlers\\', 'crawler.pickle')
+        #     try:
+        #         crawler_obj = open(crawler_file_path, 'rb')
+        #         loaded_crawler = pickle.load(crawler_obj)
+        #     except FileNotFoundError:
+        #         loaded_crawler = False
+        #         pass
+        #     if loaded_crawler:
+        #         break
             # if no crawler object exist, make one instance
-            new_crawler= Instagram_Downloader_Login.crawler()
-            Instagram_Downloader_Login.save_crawler(new_crawler)
+        new_crawler= Instagram_Downloader_Login.crawler()
+        Instagram_Downloader_Login.save_crawler(new_crawler)
 
         # Use the loaded crawler
-        media_addresses = loaded_crawler.list_media_addresses(required_url=requested_url)
-        videos_list = []
-        images_list = []
-
-        # Download all the files into the Server
-        url_path = urlparse(requested_url).path
-        url_path = url_path.replace('/', '_')
-
-        # Vidoes
-        for index, file in enumerate(media_addresses['videos_addresses'], start=1):
-            file_name = '{}_{}.mp4'.format(url_path, index)
-            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
-            urlretrieve(file, temp_file_path)
-            # add file name to the list
-            videos_list.append(file_name)
-        # Images
-        for index, file in enumerate(media_addresses['images_addresses'], start=1):
-            file_name = '{}_{}.jpg'.format(url_path, index)
-            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
-            urlretrieve(file, temp_file_path)
-            # add file name to the list
-            images_list.append(file_name)
-
-        # CHECK IF this if is needed###################################
-        if loaded_crawler:
-            context['videos_names'] = videos_list
-            context['images_names'] = images_list
-        else:
-            context['videos_names'] = False
-            context['images_names'] = False
-
-        context['RequestedLink'] = requested_url
+        # media_addresses = loaded_crawler.list_media_addresses(required_url=requested_url)
+        # videos_list = []
+        # images_list = []
+        #
+        # # Download all the files into the Server
+        # url_path = urlparse(requested_url).path
+        # url_path = url_path.replace('/', '_')
+        #
+        # # Vidoes
+        # for index, file in enumerate(media_addresses['videos_addresses'], start=1):
+        #     file_name = '{}_{}.mp4'.format(url_path, index)
+        #     temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
+        #     urlretrieve(file, temp_file_path)
+        #     # add file name to the list
+        #     videos_list.append(file_name)
+        # # Images
+        # for index, file in enumerate(media_addresses['images_addresses'], start=1):
+        #     file_name = '{}_{}.jpg'.format(url_path, index)
+        #     temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads\\', file_name)
+        #     urlretrieve(file, temp_file_path)
+        #     # add file name to the list
+        #     images_list.append(file_name)
+        #
+        # # CHECK IF this if is needed###################################
+        # if loaded_crawler:
+        #     context['videos_names'] = videos_list
+        #     context['images_names'] = images_list
+        # else:
+        #     context['videos_names'] = False
+        #     context['images_names'] = False
+        #
+        # context['RequestedLink'] = requested_url
         return context
 
 def Download(request, file_name):
