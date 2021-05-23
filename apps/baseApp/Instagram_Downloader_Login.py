@@ -69,7 +69,9 @@ class crawler():
         }
 
         login_response = requests.post(self.login_url, data=payload, headers=login_header)
+        print(login_response)
         login_response_json = json.loads(login_response.text)
+        print(login_response_json)
 
         # if successful
         if login_response_json["authenticated"]:
