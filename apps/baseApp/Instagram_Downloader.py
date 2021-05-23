@@ -13,6 +13,7 @@ from urllib.request import urlretrieve
 import os
 
 settings.configure()
+print(settings.MEDIA_ROOT)
 
 
 class crawler():
