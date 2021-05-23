@@ -89,6 +89,7 @@
       $.ajax({
           type:"GET",
           url: ajax_call,
+          timeout:50000,
           data: {
             'requested_url': requested_url,
             'csrfmiddlewaretoken': '{{ csrf_token }}',
