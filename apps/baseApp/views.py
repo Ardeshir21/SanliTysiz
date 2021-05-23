@@ -188,16 +188,9 @@ class AJAX_SCRAPE(generic.TemplateView):
             # add file name to the list
             images_list.append(file_name)
 
-        # CHECK IF this if is needed###################################
-        if new_crawler:
-            context['videos_names'] = videos_list
-            context['images_names'] = images_list
-        else:
-            context['videos_names'] = False
-            context['images_names'] = False
-
+        context['videos_names'] = videos_list
+        context['images_names'] = images_list
         context['RequestedLink'] = requested_url
-        context['AAA'] = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
         return context
 
 def Download(request, file_name):
