@@ -16,13 +16,16 @@ import os
 class crawler():
     def __init__(self, required_url):
 
-        self.token= 'https://api.proxycrawl.com/?token=TR9ra9jPRdm7fgmY_uv5Lw'
-        self.required_url = quote_plus(required_url)
+        self.proxySite = 'https://app.scrapingbee.com/api/v1/'
+        self.params = {
+                        'api_key': '9E2L835Y3VHBS1SBRX2CHIBDQ2QOFYS6S2O9N8P7ZWZSWXCBQ2WAYTMB1MLC43UPKFMUKSPDZRDAZT9U',
+                        'url': required_url
+                        }
 
     # get the response Text
     def get_response_text(self):
         # Add Referer to the header
-        r = requests.get(self.token + '&url=' + self.required_url)
+        r = requests.get(url=self.proxySite, params=self.params)
         if r.status_code != 200:
             print("Request is not possible")
             return None
