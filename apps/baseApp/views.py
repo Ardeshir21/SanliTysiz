@@ -169,40 +169,40 @@ class AJAX_SCRAPE(generic.TemplateView):
         videos_list = []
         images_list = []
 
-        # Download all the files into the Server
-        url_path = urlparse(requested_url).path
-        url_path = url_path.replace('/', '_')
+        # # Download all the files into the Server
+        # url_path = urlparse(requested_url).path
+        # url_path = url_path.replace('/', '_')
+        #
+        # # Vidoes
+        # for index, file in enumerate(media_addresses['videos_addresses'], start=1):
+        #     file_name = '{}_{}.mp4'.format(url_path, index)
+        #     temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
+        #     urlretrieve(file, temp_file_path)
+        #     # add file name to the list
+        #     videos_list.append(file_name)
+        # # Images
+        # for index, file in enumerate(media_addresses['images_addresses'], start=1):
+        #     file_name = '{}_{}.jpg'.format(url_path, index)
+        #     temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
+        #     urlretrieve(file, temp_file_path)
+        #     # add file name to the list
+        #     images_list.append(file_name)
 
-        # Vidoes
-        for index, file in enumerate(media_addresses['videos_addresses'], start=1):
-            file_name = '{}_{}.mp4'.format(url_path, index)
-            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
-            urlretrieve(file, temp_file_path)
-            # add file name to the list
-            videos_list.append(file_name)
-        # Images
-        for index, file in enumerate(media_addresses['images_addresses'], start=1):
-            file_name = '{}_{}.jpg'.format(url_path, index)
-            temp_file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
-            urlretrieve(file, temp_file_path)
-            # add file name to the list
-            images_list.append(file_name)
-
-        context['videos_names'] = videos_list
-        context['images_names'] = images_list
+        context['videos_names'] = media_addresses['videos_addresses']
+        context['images_names'] = media_addresses['images_addresses']
         context['RequestedLink'] = requested_url
         return context
 
-def Download(request, file_name):
-    file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
-    if file_path.endswith('.mp4'):
-        file_type = "video/mp4"
-    else:
-        file_type = "image/jpeg"
-
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh, content_type = file_type)
-            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
-            return response
-    raise Http404
+# def Download(request, file_name):
+#     file_path = os.path.join(settings.MEDIA_ROOT, 'Downloads', file_name)
+#     if file_path.endswith('.mp4'):
+#         file_type = "video/mp4"
+#     else:
+#         file_type = "image/jpeg"
+#
+#     if os.path.exists(file_path):
+#         with open(file_path, 'rb') as fh:
+#             response = HttpResponse(fh, content_type = file_type)
+#             response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+#             return response
+#     raise Http404

@@ -7,6 +7,7 @@ Created on Sat May 22 15:50:22 2021
 
 import requests
 import re
+import datetime
 from urllib.parse import quote_plus, urlparse
 from django.conf import settings
 from urllib.request import urlretrieve
@@ -24,11 +25,16 @@ class crawler():
 
     # get the response Text
     def get_response_text(self):
+        # Timer
+        a = datetime.datetime.now().replace(microsecond=0)
         # Add Referer to the header
         r = requests.get(url=self.proxySite, params=self.params)
         if r.status_code != 200:
             print("Request is not possible")
             return None
+            # Timer
+        b = datetime.datetime.now().replace(microsecond=0)
+        print(b-a)
         return r.text
 
     # change the recieved download link to make it usable

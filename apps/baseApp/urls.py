@@ -18,7 +18,7 @@ urlpatterns = [
     path('about/', views.AboutView.as_view(), name='about-us'),
     path('test/', views.TestView.as_view(), name='test'),
     path('test/ajax', views.AJAX_SCRAPE.as_view(), name='ajax_crawl'),
-    path('test/dd/<file_name>', views.Download, name='download'),
+    # path('test/dd/<file_name>', views.Download, name='download'),
 
     # This is for sitemap.xml
     path('SanliSiteMap.xml', sitemap, {'sitemaps': sitemaps_dict},
